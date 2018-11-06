@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>64</title>
+	<link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
+</head>
+<style>
+	body {
+		text-align: center;
+		font-family: 'Share Tech Mono', monospace;
+		font-size: 22px;
+	}
+
+	p {
+		font-size: 18px;
+	}
+
+	button {
+		background-color: #e7e7e7;
+		color: black;
+		text-align: center;
+		border: none;
+		text-decoration: none;
+		font: 18px;
+		border-radius: 25px;
+		padding: 15px 20px;
+	}
+
+	input[type=text] {
+		border-radius: 20px;
+		width: 10%;
+		padding: 8px 10px;
+	}
+</style>
+<body>
+
+<h3>Choosing numbers 1 - 8, Count to 64 before the computer</h3>
+
+Your first guess:
+
+<input id="guess" type="text"><br />
+
+<button type="button" onclick="combinational();">Submit</button>
+
+<br />
+
+<script>
+
+var combinational = function(){
+ 	var userString = document.getElementById('guess').value;
+ 	var guess = parseInt(userString, 10);
+ 	if(guess > 8 || guess < 1){
+		userString = prompt("Wrong, Pick a number 1 - 8: ");
+		guess = parseInt(userString, 10);
+ 	}
+	var total = 0;
+	while(total < 64){
+		compTotal = Math.floor((Math.random() * 8) + 1);
+		total += guess;
+		if(total == 64){
+			alert("You won!");
+			break;
+		}		
+		if(total >= 56 && total < 64){
+			total += 64-total;
+			alert("Total: "+total+"\nComputer Won, try again");
+			break;
+		}
+		total += compTotal		
+		userString = prompt("Computer chose: "+compTotal+
+							"\nCurrent Total is: "+total+
+							"\nEnter another guess:");
+		guess = parseInt(userString, 10);
+		if(guess > 8 || guess < 1){
+			userString = prompt("Wrong, Pick a number 1 - 8: ");
+			guess = parseInt(userString, 10);
+		}
+	}
+};
+
+
+</script>
+
+</body>
+</html>
