@@ -1,85 +1,127 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>64</title>
-	<link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
+	<title>Web App</title>
+	<link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow" rel="stylesheet">
 </head>
 <style>
-	body {
-		text-align: center;
-		font-family: 'Share Tech Mono', monospace;
-		font-size: 22px;
-	}
+body {
+	text-align: center;
+	font-family: 'PT Sans Narrow', sans-serif;
+}
 
-	p {
-		font-size: 18px;
-	}
 
-	button {
-		background-color: #e7e7e7;
-		color: black;
-		text-align: center;
-		border: none;
-		text-decoration: none;
-		font: 18px;
-		border-radius: 25px;
-		padding: 15px 20px;
-	}
-
-	input[type=text] {
-		border-radius: 20px;
-		width: 10%;
-		padding: 8px 10px;
-	}
+input[type=text]{
+	padding: 50px, 50px;
+	border-radius: 4px;
+	border: 1px solid #ccc;
+}
 </style>
 <body>
 
-<h3>Choosing numbers 1 - 8, Count to 64 before the computer</h3>
+	<h1>Enter the name of the country to learn their population size</h1>
 
-Your first guess:
+	Enter the name of a country:
+	<input id="country" type="text">
+	<button type="button" onclick="populationSearch();">Search</button>
 
-<input id="guess" type="text"><br />
-
-<button type="button" onclick="combinational();">Submit</button>
-
-<br />
+	<h2 id="returnedCountry"></h2>
+	<h2 id="returnpopulation"></h2>
 
 <script>
 
-var combinational = function(){
- 	var userString = document.getElementById('guess').value;
- 	var guess = parseInt(userString, 10);
- 	if(guess > 8 || guess < 1){
-		userString = prompt("Wrong, Pick a number 1 - 8: ");
-		guess = parseInt(userString, 10);
- 	}
-	var total = 0;
-	while(total < 64){
-		compTotal = Math.floor((Math.random() * 8) + 1);
-		total += guess;
-		if(total == 64){
-			alert("You won!");
-			break;
-		}		
-		if(total >= 56 && total < 64){
-			total += 64-total;
-			alert("Total: "+total+"\nComputer Won, try again");
-			break;
+var populationSearch = function(){
+	var user_country = document.getElementById('country').value.toUpperCase();
+	var found = false;
+
+	for(var i = 0; i < countries.length; i ++){
+
+		if(countries[i].value.indexOf(user_country) != -1){
+
+			found = true;
+
+			var returnpopulation = countries[i].total_population;
+
+			var returnedCountry = countries[i].country;
+
+			var countryElement = document.getElementById('returnedCountry');
+			countryElement.innerHTML = returnedCountry;
+
+			var populationElement = document.getElementById('returnpopulation');
+			populationElement.innerHTML = returnpopulation;
+
 		}
-		total += compTotal		
-		userString = prompt("Computer chose: "+compTotal+
-							"\nCurrent Total is: "+total+
-							"\nEnter another guess:");
-		guess = parseInt(userString, 10);
-		if(guess > 8 || guess < 1){
-			userString = prompt("Wrong, Pick a number 1 - 8: ");
-			guess = parseInt(userString, 10);
-		}
+	};
+
+	if(found == false){
+		alert("The country: " + user_country + " was not in my dataset");
 	}
 };
 
-
+countries = 
+[
+	{
+		"value": "BRAZIL",
+		"country": "BRAZIL",
+		"total_population": 213442650
+	},
+	{
+		"value": "FRANCE",
+		"country": "FRANCE",
+		"total_population": 65298965	
+	},
+	{
+		"value": "GERMANY",
+		"country": "GERMANY",
+		"total_population": 80529630
+	},
+	{
+		"value": "GREECE",
+		"country": "GREECE",
+		"total_population": 10864371	
+	},
+	{
+		"value": "ITALY",
+		"country": "ITALY",
+		"total_population": 59780950
+	},
+	{
+		"value": "JAPAN",
+		"country": "JAPAN",
+		"total_population": 125617496
+	},
+	{
+		"value": "KENYA",
+		"country": "KENYA",
+		"total_population": 50135467
+	},
+	{
+		"value": "MEXICO",
+		"country": "MEXICO",
+		"total_population": 132339087
+		
+	},
+	{
+		"value": "POLAND",
+		"country": "POLAND",
+		"total_population": 38505351	
+	},
+	{
+		"value": "INDIA",
+		"country": "INDIA",
+		"total_population": 1363661281
+	},
+	{
+		"value": "UNITED STATES",
+		"country": "UNITED STATES",
+		"total_population": 329667488
+	},
+	{
+		"value": "EART",
+		"country": "EARTH",
+		"total_population": 7626113797
+	},
+]
 </script>
-
 </body>
 </html>
